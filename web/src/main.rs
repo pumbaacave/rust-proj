@@ -1,7 +1,9 @@
-//use crate::web::ThreadPool;
+extern crate threads_pool;
+
 use std::io::prelude::*;
 use std::net::{TcpListener, TcpStream};
-use web::ThreadPool;
+use threads_pool::ThreadPool;
+
 fn main() {
     let listner = TcpListener::bind("127.0.0.1:8080").unwrap();
     let pool = ThreadPool::new(4);
@@ -10,6 +12,7 @@ fn main() {
         pool.execute(|| {
             handle(stm);
         })
+        .unwrap();
     }
 }
 
